@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/3441/openmrs-modules/form2program/metadata
+END
+messages_es.properties
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/!svn/ver/2306/openmrs-modules/form2program/metadata/messages_es.properties
+END
+messages_fr.properties
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/!svn/ver/2306/openmrs-modules/form2program/metadata/messages_fr.properties
+END
+Form2ProgramCondition.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/!svn/ver/2888/openmrs-modules/form2program/metadata/Form2ProgramCondition.hbm.xml
+END
+Form2ProgramMap.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/!svn/ver/2352/openmrs-modules/form2program/metadata/Form2ProgramMap.hbm.xml
+END
+moduleApplicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/!svn/ver/2888/openmrs-modules/form2program/metadata/moduleApplicationContext.xml
+END
+messages.properties
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/2907/openmrs-modules/form2program/metadata/messages.properties
+END
+Form2ProgramTransition.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/!svn/ver/2888/openmrs-modules/form2program/metadata/Form2ProgramTransition.hbm.xml
+END
+config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/3441/openmrs-modules/form2program/metadata/config.xml
+END
+sqldiff.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/2888/openmrs-modules/form2program/metadata/sqldiff.xml
+END

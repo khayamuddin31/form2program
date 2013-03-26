@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="@MODULE_PACKAGE@">
+
+	<class name="Form2ProgramMap" table="form2program_map">
+
+		<composite-id>
+			<key-many-to-one name="program" column="program" class="org.openmrs.Program"/>
+			<key-many-to-one name="encounterType" column="encounter_type" class="org.openmrs.EncounterType"/>
+		</composite-id>
+		
+		<many-to-one name="creator" class="org.openmrs.User" not-null="true"/>
+		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
+		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" not-null="true"/>
+		<property name="dateChanged" type="java.util.Date" column="date_changed" not-null="true" />
+		<property name="applied" type="java.lang.Boolean" not-null="true" length="1"/>
+		
+	</class>
+</hibernate-mapping>

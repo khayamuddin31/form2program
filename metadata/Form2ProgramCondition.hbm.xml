@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="@MODULE_PACKAGE@">
+
+	<class name="Form2ProgramCondition" table="form2program_condition">
+
+		<id name="conditionId" type="java.lang.Integer" column="form2program_condition_id" unsaved-value="0"> 
+            <generator class="native" />
+		</id>
+
+        <many-to-one name="conceptId" column="concept_id" class="org.openmrs.Concept" not-null="true"/>
+        <property name="operator" column="operator" type="java.lang.String" length="10"/>       
+		<many-to-one name="valueCoded" column="value_coded" class="org.openmrs.Concept" />
+		<many-to-one name="valueDrug" class="org.openmrs.Drug" column="value_drug"/>
+        <property name="valueDatetime" type="java.util.Date" column="value_datetime" length="19" />
+        <property name="valueNumeric" type="java.lang.Double" column="value_numeric" length="22" />
+        <property name="valueModifier" type="java.lang.String" column="value_modifier" length="2" />
+        <property name="valueText" type="java.lang.String" column="value_text" length="50" />
+	</class>
+</hibernate-mapping>
+

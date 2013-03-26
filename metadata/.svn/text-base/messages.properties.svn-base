@@ -1,0 +1,33 @@
+@MODULE_ID@.title=Form2Program
+@MODULE_ID@.add=Add Encounter Type to Program
+@MODULE_ID@.remove=Remove Encounter Type from Program
+@MODULE_ID@.list.title=Encounter Types to Programs
+@MODULE_ID@.form.title=Manage Encounter Types to Programs
+@MODULE_ID@.enroll.current=enrolls patients into
+@MODULE_ID@.enroll.encounterType=encounter type will enroll patient into the 
+@MODULE_ID@.enroll.program=program.
+@MODULE_ID@.error.makeSelection=Must select an Encounter Type and a Program
+@MODULE_ID@.error.alreadyExists=Encounter Type already enrolls to this Program
+@MODULE_ID@.error.notExists=Encounter Type does not enroll to this Program
+@MODULE_ID@.needUpdate=Click 'Update' to enroll existing patients that have previously used this encounter type.
+@MODULE_ID@.delete.confirm=Delete Encounter Type from Program?
+@MODULE_ID@.update.confirm=Update Program enrollment? This might take some time.
+@MODULE_ID@.update.success=Existing patients were successfully enrolled in the program.
+@MODULE_ID@.update.none=No existing patients needed to be enrolled in this program.
+
+@MODULE_ID@.condition.list.title=Conditions for State Transition
+@MODULE_ID@.condition.view.title=View Condition
+@MODULE_ID@.condition.form.title=Edit Condition
+@MODULE_ID@.condition.view=View Condition
+@MODULE_ID@.condition.edit=Edit Condition
+@MODULE_ID@.condition.for= for State Transition
+@MODULE_ID@.condition.new=Create New Condition
+@MODULE_ID@.condition.conditionId=Condition Id
+@MODULE_ID@.condition.operator=Condition Operator
+@MODULE_ID@.condition.delete.confirm=Delete this condition?
+@MODULE_ID@.condition.delete.success=Condition deleted.
+@MODULE_ID@.condition.error.concept=Concept ID is null.
+
+@MODULE_ID@.transition.list.title=State Transitions
+@MODULE_ID@.transition.form.title=Edit State Transitions
+@MODULE_ID@.transition.list.title=State Transitions

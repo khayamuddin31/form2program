@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/!svn/ver/5015/openmrs-modules/form2program
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/5013/openmrs-modules/form2program/build.xml
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/2306/openmrs-modules/form2program/.project
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/5013/openmrs-modules/form2program/.classpath
+END

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqldiff PUBLIC "-//OpenMRS//DTD OpenMRS SQL Diff Config 1.0//EN" "http://resources.openmrs.org/doctype/sqldiff-1.0.dtd">
+
+<sqldiff version="1.0">
+	<help>
+		USE:
+			The diffs are ordered by datamodel version number.
+			The script can be run in a top down fashion and is
+			expected to not failor overwrite old data
+		
+		EXPECT:
+			- "use business-database-name;" was called prior to
+			   calling this script
+	</help>
+	
+	<diff>
+		<version>1.0.0</version>
+		<author>Brian McKown</author>
+		<date>Sep 3, 2007</date>
+		<description>
+			Create the form2program table
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS `form2program_map` (
+				`program` int(11) NOT NULL,
+				`encounter_type` int(11) NOT NULL,
+				`creator` int(11) NOT NULL,
+				`date_created` datetime NOT NULL,
+				`changed_by` int(11) NOT NULL,
+				`date_changed` datetime NOT NULL,
+				`applied` tinyint(1) NOT NULL DEFAULT '0',
+				PRIMARY KEY  (`program`,`encounter_type`),
+				KEY `encounter_type` (`encounter_type`),
+				KEY `user_who_created_form2program` (`creator`),
+				KEY `user_who_changed_form2program` (`changed_by`),
+				CONSTRAINT `user_who_changed_form2program` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+				CONSTRAINT `form2program_map_ibfk_1` FOREIGN KEY (`program`) REFERENCES `program` (`program_id`),
+				CONSTRAINT `form2program_map_ibfk_2` FOREIGN KEY (`encounter_type`) REFERENCES `encounter_type` (`encounter_type_id`),
+				CONSTRAINT `user_who_created_form2program` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</diff>	
+	
+	<diff>
+	   <version>1.1.0</version>
+	   <author>Brian McKown</author>
+	   <date>Dec 18, 2007</date>
+	   <description>
+	       Create form2program_condition and form2program_transition tables
+	   </description>
+	   <sql>
+	       CREATE TABLE IF NOT EXISTS `form2program_condition` (
+                `form2program_condition_id` int(11) NOT NULL auto_increment,
+                `concept_id` int(11) NOT NULL,
+                `operator` varchar(10) default NULL,
+                `value_coded` int(11) default NULL,
+                `value_drug` int(11) default NULL,
+                `value_datetime` datetime default NULL,
+                `value_numeric` double default NULL,
+                `value_modifier` char(2) default NULL,
+                `value_text` text,
+                PRIMARY KEY  (`form2program_condition_id`),
+                KEY `form2program_concept_id_FK` (`concept_id`),
+                KEY `form2program_value_coded_FK` (`value_coded`),
+                KEY `form2program_value_drug_FK` (`value_drug`),
+                CONSTRAINT `form2program_concept_id_FK` FOREIGN KEY (`concept_id`) REFERENCES `concept` (`concept_id`) ON UPDATE CASCADE,
+                CONSTRAINT `form2program_value_coded_FK` FOREIGN KEY (`value_coded`) REFERENCES `concept` (`concept_id`) ON UPDATE CASCADE,
+                CONSTRAINT `form2program_value_drug_FK` FOREIGN KEY (`value_drug`) REFERENCES `drug` (`drug_id`) ON UPDATE CASCADE
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            
+            
+            CREATE TABLE `form2program_transition` (
+                `current_state` int(11) NOT NULL,
+                `form2program_condition_id` int(11) NOT NULL,
+                `next_state` int(11) NOT NULL,
+                PRIMARY KEY  (`current_state`,`form2program_condition_id`),
+                KEY `form2program_condition_FK` (`form2program_condition_id`),
+                KEY `form2program_next_state_FK` (`next_state`),
+                CONSTRAINT `form2program_condition_FK` FOREIGN KEY (`form2program_condition_id`) REFERENCES `form2program_condition` (`form2program_condition_id`) ON UPDATE CASCADE,
+                CONSTRAINT `form2program_current_state_FK` FOREIGN KEY (`current_state`) REFERENCES `program_workflow_state` (`program_workflow_state_id`) ON UPDATE CASCADE,
+                CONSTRAINT `form2program_next_state_FK` FOREIGN KEY (`next_state`) REFERENCES `program_workflow_state` (`program_workflow_state_id`) ON UPDATE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	   </sql>
+    </diff>	
+</sqldiff>

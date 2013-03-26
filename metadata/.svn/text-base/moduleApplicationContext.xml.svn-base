@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- Beans to add to the current Application context definition -->
+  
+<beans>
+	
+    <bean id="form2ProgramUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    	<property name="mappings">
+            <props>
+	            <prop key="module/@MODULE_ID@/form2Program.form">form2ProgramForm</prop>
+                <prop key="module/@MODULE_ID@/form2ProgramCondition.list">form2ProgramConditionList</prop>
+                <prop key="module/@MODULE_ID@/form2ProgramCondition.htm">form2ProgramConditionView</prop>
+                <prop key="module/@MODULE_ID@/form2ProgramCondition.form">form2ProgramConditionForm</prop>
+                <prop key="module/@MODULE_ID@/form2ProgramTransition.form">form2ProgramTransitionForm</prop>
+                <prop key="module/@MODULE_ID@/form2ProgramTransition.list">form2ProgramTransitionList</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>@MODULE_PACKAGE@.Form2ProgramService</value> 
+				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager"><ref bean="transactionManager"/></property>
+					<property name="target">
+						<bean class="@MODULE_PACKAGE@.impl.Form2ProgramServiceImpl">
+							<property name="form2ProgramDAO">
+								<bean class="@MODULE_PACKAGE@.db.hibernate.HibernateForm2ProgramDAO">
+									<property name="sessionFactory"><ref bean="sessionFactory"/></property>	
+								</bean>
+							</property>	
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor"/>
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Controllers -->
+	
+	<bean id="form2ProgramForm" class="@MODULE_PACKAGE@.web.controller.Form2ProgramFormController">
+		<property name="commandName"><value>form2program</value></property>
+		<property name="formView"><value>/module/@MODULE_ID@/form2ProgramForm</value></property>
+		<property name="successView"><value>form2Program.form</value></property>
+	</bean>
+    <bean id="form2ProgramConditionList" class="@MODULE_PACKAGE@.web.controller.Form2ProgramConditionListController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/@MODULE_ID@/form2ProgramConditionList</value></property>
+        <property name="successView"><value>form2ProgramCondition.list</value></property>
+    </bean>
+    <bean id="form2ProgramConditionView" class="@MODULE_PACKAGE@.web.controller.Form2ProgramConditionFormController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/@MODULE_ID@/form2ProgramCondition</value></property>
+        <property name="successView"><value>form2ProgramCondition.htm</value></property>
+    </bean>
+    <bean id="form2ProgramConditionForm" class="@MODULE_PACKAGE@.web.controller.Form2ProgramConditionFormController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/@MODULE_ID@/form2ProgramConditionForm</value></property>
+        <property name="successView"><value>form2ProgramCondition.form</value></property>
+    </bean>
+    <bean id="form2ProgramTransitionForm" class="@MODULE_PACKAGE@.web.controller.Form2ProgramTransitionController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/@MODULE_ID@/form2ProgramTransitionForm</value></property>
+        <property name="successView"><value>form2ProgramTransition.form</value></property>
+    </bean>
+    <bean id="form2ProgramTransitionList" class="@MODULE_PACKAGE@.web.controller.Form2ProgramTransitionController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/@MODULE_ID@/form2ProgramTransitionList</value></property>
+        <property name="successView"><value>form2ProgramTransition.list</value></property>
+    </bean>
+	
+	<!-- /Controllers -->
+	
+	
+</beans>
