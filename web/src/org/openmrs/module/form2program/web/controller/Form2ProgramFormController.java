@@ -110,7 +110,10 @@ public class Form2ProgramFormController extends SimpleFormController {
 			program = getProgramWorkflowService().getProgram(programId);
 			encounterType = getEncounterService().getEncounterType(encounterTypeId);			
     		if (form2ProgramService.existsForm2ProgramMap(program, encounterType))
+    		{
+    			form2ProgramService.removeForm2ProgramMap(program,encounterType);
     			form2ProgramService.deleteForm2ProgramMap(form2ProgramService.getForm2ProgramMap(program, encounterType));
+    		}
     		else 
     			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR , "form2program.error.notExists");
 		}

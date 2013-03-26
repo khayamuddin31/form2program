@@ -64,5 +64,7 @@ public interface Form2ProgramService {
 	public List<Form2ProgramCondition> getConditions(Integer conditionId);
 	
 	public List<Form2ProgramTransition> getTransitions(ProgramWorkflowState currentState, Form2ProgramCondition condition );
+
+	public void removeForm2ProgramMap(Program program,EncounterType encounterType);
 	
 }

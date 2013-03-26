@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.form2program">
+
+    <class name="Form2ProgramTransition" table="form2program_transition">
+
+        <composite-id>
+            <key-many-to-one name="currentState" column="current_state" class="org.openmrs.ProgramWorkflowState"/>
+            <key-many-to-one name="condition" column="form2program_condition_id" class="Form2ProgramCondition"/>
+        </composite-id>
+
+        <many-to-one name="nextState" column="next_state" class="org.openmrs.ProgramWorkflowState" not-null="true" />
+
+    </class>
+</hibernate-mapping>
+
