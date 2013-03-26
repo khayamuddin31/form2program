@@ -1,5 +1,7 @@
 package org.openmrs.module.form2program.db.hibernate;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
@@ -166,7 +169,7 @@ public class HibernateForm2ProgramDAO implements Form2ProgramDAO {
         "AND encounter.encounter_datetime = (select min(e.encounter_datetime) from encounter e where e.patient_id = encounter.patient_id and e.encounter_type in " + 
         "( select form2program_map.encounter_type from form2program_map where form2program_map.program = " + program.getProgramId() + " ) ) " +
         "GROUP BY encounter.patient_id ORDER BY encounter.encounter_datetime ASC";
-	    	    
+        
 		int rows = 0;
 		try {
 			rows = this.sessionFactory.getCurrentSession().connection().prepareStatement(query).executeUpdate();
@@ -211,6 +214,33 @@ public class HibernateForm2ProgramDAO implements Form2ProgramDAO {
 	return rows;
 	}
 	
+	/**
+	 * Delete entry in patient_program if all the encounter types are deleted for a particular program
+	 */
+	
+	public void removeForm2ProgramMap(Program program,
+			EncounterType encounterType) {
+		String query="delete from patient_program where patient_id in (SELECT DISTINCT encounter.patient_id FROM encounter WHERE encounter.encounter_type = " + encounterType.getEncounterTypeId() +") and program_id="+ program.getProgramId();
+		int rows=0;
+		try {
+			ResultSet rs= this.sessionFactory.getCurrentSession().connection().createStatement().executeQuery("select count(program) from form2program_map where program= "+program.getProgramId());
+			if(rs.next())
+			{
+				int count=Integer.parseInt(rs.getString(1));
+				if(count==1)
+					rows=this.sessionFactory.getCurrentSession().connection().prepareStatement(query).executeUpdate();
+			}
+		}
+		catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public List<Form2ProgramCondition> getConditions(Integer conditionId) {
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Form2ProgramCondition.class);
 		if (conditionId != null)
@@ -226,5 +256,6 @@ public class HibernateForm2ProgramDAO implements Form2ProgramDAO {
 			criteria.add(Expression.eq("condition", condition));
 		return criteria.list();
 	}
+
 				
 }

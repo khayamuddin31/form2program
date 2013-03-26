@@ -122,6 +122,10 @@ public class Form2ProgramServiceImpl implements Form2ProgramService {
 		return rows;
 	}
 	
+	public void removeForm2ProgramMap(Program program,EncounterType encounterType)
+	{
+		dao.removeForm2ProgramMap(program,encounterType);
+	}
 	public List<Program> getPrograms( ) {
 		List<Program> programs = dao.getPrograms();
 		return programs;

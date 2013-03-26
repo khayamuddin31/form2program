@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- Beans to add to the current Application context definition -->
+  
+<beans>
+	
+    <bean id="form2ProgramUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    	<property name="mappings">
+            <props>
+	            <prop key="module/form2program/form2Program.form">form2ProgramForm</prop>
+                <prop key="module/form2program/form2ProgramCondition.list">form2ProgramConditionList</prop>
+                <prop key="module/form2program/form2ProgramCondition.htm">form2ProgramConditionView</prop>
+                <prop key="module/form2program/form2ProgramCondition.form">form2ProgramConditionForm</prop>
+                <prop key="module/form2program/form2ProgramTransition.form">form2ProgramTransitionForm</prop>
+                <prop key="module/form2program/form2ProgramTransition.list">form2ProgramTransitionList</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.form2program.Form2ProgramService</value> 
+				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager"><ref bean="transactionManager"/></property>
+					<property name="target">
+						<bean class="org.openmrs.module.form2program.impl.Form2ProgramServiceImpl">
+							<property name="form2ProgramDAO">
+								<bean class="org.openmrs.module.form2program.db.hibernate.HibernateForm2ProgramDAO">
+									<property name="sessionFactory"><ref bean="sessionFactory"/></property>	
+								</bean>
+							</property>	
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor"/>
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Controllers -->
+	
+	<bean id="form2ProgramForm" class="org.openmrs.module.form2program.web.controller.Form2ProgramFormController">
+		<property name="commandName"><value>form2program</value></property>
+		<property name="formView"><value>/module/form2program/form2ProgramForm</value></property>
+		<property name="successView"><value>form2Program.form</value></property>
+	</bean>
+    <bean id="form2ProgramConditionList" class="org.openmrs.module.form2program.web.controller.Form2ProgramConditionListController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/form2program/form2ProgramConditionList</value></property>
+        <property name="successView"><value>form2ProgramCondition.list</value></property>
+    </bean>
+    <bean id="form2ProgramConditionView" class="org.openmrs.module.form2program.web.controller.Form2ProgramConditionFormController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/form2program/form2ProgramCondition</value></property>
+        <property name="successView"><value>form2ProgramCondition.htm</value></property>
+    </bean>
+    <bean id="form2ProgramConditionForm" class="org.openmrs.module.form2program.web.controller.Form2ProgramConditionFormController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/form2program/form2ProgramConditionForm</value></property>
+        <property name="successView"><value>form2ProgramCondition.form</value></property>
+    </bean>
+    <bean id="form2ProgramTransitionForm" class="org.openmrs.module.form2program.web.controller.Form2ProgramTransitionController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/form2program/form2ProgramTransitionForm</value></property>
+        <property name="successView"><value>form2ProgramTransition.form</value></property>
+    </bean>
+    <bean id="form2ProgramTransitionList" class="org.openmrs.module.form2program.web.controller.Form2ProgramTransitionController">
+        <property name="commandName"><value>form2program</value></property>
+        <property name="formView"><value>/module/form2program/form2ProgramTransitionList</value></property>
+        <property name="successView"><value>form2ProgramTransition.list</value></property>
+    </bean>
+	
+	<!-- /Controllers -->
+	
+	
+</beans>
